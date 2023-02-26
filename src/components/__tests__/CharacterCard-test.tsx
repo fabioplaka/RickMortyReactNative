@@ -4,6 +4,7 @@ import { CharacterCard } from "../CharacterCard";
 
 test("make sure that CharacterCard is called", () => {
   const onPressFn = jest.fn();
+  jest.mock("react-native-vector-icons/MaterialCommunityIcons", () => "Icon");
   const { getByTestId } = render(
     <CharacterCard
       onPress={onPressFn}
