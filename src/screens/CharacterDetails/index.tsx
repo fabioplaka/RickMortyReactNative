@@ -1,19 +1,17 @@
 import { useQuery } from "@apollo/client";
 import { RouteProp, useRoute } from "@react-navigation/native";
 import React, { useCallback } from "react";
+import { View, ActivityIndicator, FlatList, Image, Text } from "react-native";
+import { GET_CHARACTER_DETAILS } from "../../apollo/queries";
+import { Error } from "../../components/Error";
+import { EpisodeCard } from "../../components/EpisodeCard";
 import {
-  View,
-  ActivityIndicator,
-  StyleSheet,
-  FlatList,
-  Image,
-  Text,
-} from "react-native";
-import { GET_CHARACTER_DETAILS } from "../apollo/queries";
-import Error from "../components/Error";
-import EpisodeCard from "../components/EpisodeCard";
-import { CharacterDetailsTypes, EpisodeTypes } from "../types/CharacterTypes";
-import { NavigationTypes } from "../types/NavigationTypes";
+  CharacterDetailsTypes,
+  EpisodeTypes,
+} from "../../types/CharacterTypes";
+import { NavigationTypes } from "../../types/NavigationTypes";
+import { styles } from "./styles";
+import { STYLES } from "../../common/Styles";
 
 const CharacterDetails: React.FC = (): JSX.Element => {
   const { params } = useRoute<RouteProp<NavigationTypes, "CharacterDetails">>();
@@ -32,7 +30,9 @@ const CharacterDetails: React.FC = (): JSX.Element => {
       <View>
         <Image source={{ uri: data?.character.image }} style={styles.image} />
         <Text style={styles.name}>{data?.character.name}</Text>
-        <Text style={styles.gender}>{data?.character.gender}</Text>
+        <Text style={styles.gender}>
+          {data?.character.species} - {data?.character.gender}
+        </Text>
         <Text style={styles.episodes}>
           Episodes: {data?.character.episode?.length}
         </Text>
@@ -57,7 +57,7 @@ const CharacterDetails: React.FC = (): JSX.Element => {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={STYLES.container}>
       {loading && <ActivityIndicator color="#43ADAD" size={"large"} />}
       {error ? (
         <Error />
@@ -72,38 +72,4 @@ const CharacterDetails: React.FC = (): JSX.Element => {
   );
 };
 
-export default CharacterDetails;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    width: "100%",
-  },
-  image: {
-    width: "100%",
-    height: 350,
-  },
-  name: {
-    marginVertical: 15,
-    fontSize: 25,
-    textAlign: "center",
-    fontWeight: "200",
-  },
-  gender: {
-    fontSize: 16,
-    textAlign: "center",
-    marginBottom: 10,
-  },
-  episodes: {
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    fontWeight: "bold",
-    fontSize: 20,
-    backgroundColor: "#43ADAD",
-    color: "#ffffff",
-  },
-  episodeNumber: {
-    width: 30,
-  },
-});
+export { CharacterDetails };

@@ -9,13 +9,15 @@ import {
   Text,
   View,
 } from "react-native";
-import { GET_CHARACTERS } from "../apollo/queries";
-import CharacterCard from "../components/CharacterCard";
-import Error from "../components/Error";
-import SearchInput from "../components/SearchInput";
-import { useDebounce } from "../hooks/useDebounce";
-import { Character } from "../types/CharacterCardTypes";
-import { CharactersListTypes } from "../types/CharacterTypes";
+import { GET_CHARACTERS } from "../../apollo/queries";
+import { STYLES } from "../../common/Styles";
+import { CharacterCard } from "../../components/CharacterCard";
+import { Error } from "../../components/Error";
+import { SearchInput } from "../../components/SearchInput";
+import { useDebounce } from "../../hooks/useDebounce";
+import { Character } from "../../types/CharacterCardTypes";
+import { CharactersListTypes } from "../../types/CharacterTypes";
+import { styles } from "./styles";
 
 const CharacterList: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
@@ -101,7 +103,7 @@ const CharacterList: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={STYLES.container}>
       <SearchInput onChangeText={handleSearchInput} value={searchValue} />
       {loading && <ActivityIndicator color="#43ADAD" size={"large"} />}
       {error ? (
@@ -129,17 +131,4 @@ const CharacterList: React.FC = () => {
   );
 };
 
-export default CharacterList;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    width: "100%",
-  },
-  noMoreText: {
-    textAlign: "center",
-    textAlignVertical: "center",
-    fontSize: 14,
-  },
-});
+export { CharacterList };

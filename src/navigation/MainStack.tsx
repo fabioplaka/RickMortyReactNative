@@ -1,11 +1,11 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import CharacterList from "../screens/CharacterList";
-import CharacterDetails from "../screens/CharacterDetails";
-import GoBack from "../components/GoBackButton";
+import { CharacterList } from "../screens/CharacterList";
+import { CharacterDetails } from "../screens/CharacterDetails";
+import { GoBack } from "../components/GoBack";
+import { STYLES } from "../common/Styles";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,8 +15,8 @@ const MainStactNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: styles.headerStyle,
-        headerTitleStyle: styles.headerTitleStyle,
+        headerStyle: STYLES.headerStyle,
+        headerTitleStyle: STYLES.headerTitleStyle,
       }}
     >
       <Stack.Screen
@@ -27,8 +27,8 @@ const MainStactNavigator = () => {
       <Stack.Screen
         name="CharacterDetails"
         component={CharacterDetails}
-        options={({ route }) => ({
-          headerTitle: route.params?.name,
+        options={({}) => ({
+          headerTitle: "",
           headerLeft: () => goBack(),
         })}
       />
@@ -37,14 +37,3 @@ const MainStactNavigator = () => {
 };
 
 export default MainStactNavigator;
-
-const styles = StyleSheet.create({
-  headerStyle: {
-    backgroundColor: "#43ADAD",
-  },
-  headerTitleStyle: {
-    color: "#FFFFFF",
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-});
