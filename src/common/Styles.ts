@@ -27,4 +27,17 @@ export const STYLES = StyleSheet.create({
     textAlignVertical: "center",
     fontSize: 14,
   },
+  shadow: {
+    shadowColor: COLORS.black,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    backgroundColor: COLORS.white,
+    borderRadius: 10,
+    marginBottom: 20,
+  },
 });

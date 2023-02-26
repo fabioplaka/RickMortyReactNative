@@ -18,6 +18,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({
   return (
     <Card>
       <TouchableOpacity
+        testID="CharacterCardId"
         style={styles.container}
         onPress={() => onPress(character)}
       >

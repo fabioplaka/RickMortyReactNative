@@ -8,7 +8,11 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ children }) => {
-  return <View style={styles.shadow}>{children}</View>;
+  return (
+    <View testID="Card" style={styles.shadow}>
+      {children}
+    </View>
+  );
 };
 
 export { Card };
