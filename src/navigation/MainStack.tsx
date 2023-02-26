@@ -5,10 +5,13 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import CharacterList from "../screens/CharacterList";
 import CharacterDetails from "../screens/CharacterDetails";
+import GoBack from "../components/GoBackButton";
 
 const Stack = createNativeStackNavigator();
 
 const MainStactNavigator = () => {
+  const goBack = () => <GoBack />;
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -21,7 +24,14 @@ const MainStactNavigator = () => {
         component={CharacterList}
         options={{ title: "Character List" }}
       />
-      <Stack.Screen name="CharacterDetails" component={CharacterDetails} />
+      <Stack.Screen
+        name="CharacterDetails"
+        component={CharacterDetails}
+        options={({ route }) => ({
+          headerTitle: route.params?.name,
+          headerLeft: () => goBack(),
+        })}
+      />
     </Stack.Navigator>
   );
 };
