@@ -7,6 +7,7 @@ import { GET_CHARACTERS } from "../apollo/queries";
 import CharacterCard from "../components/CharacterCard";
 import Error from "../components/Error";
 import SearchInput from "../components/SearchInput";
+import { useDebounce } from "../hooks/useDebounce";
 import { Character } from "../types/CharacterCardTypes";
 import { CharactersListTypes } from "../types/CharacterTypes";
 
@@ -15,15 +16,37 @@ const CharacterList: React.FC = () => {
 
   const [searchValue, setSearchValue] = useState<string>("");
 
+  // get characted api call
   const [getCharacters, { data, loading, error }] =
     useLazyQuery<CharactersListTypes>(GET_CHARACTERS, {
       variables: { page: 1 },
     });
 
+  // debounced value
+  let debouncedSearchTerm = useDebounce(searchValue, 500);
+
+  // search character
   const handleSearchInput = (text: string): void => {
     setSearchValue(text);
+    searchHandler(debouncedSearchTerm);
   };
 
+  // search character handler
+  const searchHandler: (value: string) => void = async (value) => {
+    if (value !== null) {
+      getCharacters({
+        variables: {
+          filter: {
+            name: value,
+          },
+        },
+      });
+    } else {
+      getCharacters();
+    }
+  };
+
+  // navigate to character details
   const handleCharacter = (character: Character) => {
     navigation.navigate("CharacterDetails", {
       id: character.id,
