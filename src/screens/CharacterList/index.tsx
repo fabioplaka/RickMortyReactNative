@@ -2,13 +2,7 @@ import { useLazyQuery } from "@apollo/client";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { ActivityIndicator, FlatList, Text, View } from "react-native";
 import { GET_CHARACTERS } from "../../apollo/queries";
 import { STYLES } from "../../common/Styles";
 import { CharacterCard } from "../../components/CharacterCard";
